@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '13'
+          java-version: '12'
           cache: gradle
       - name: Validate Gradle Wrapper
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
