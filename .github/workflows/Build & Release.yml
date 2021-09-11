@@ -1,0 +1,61 @@
+name: Build & Release
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'LBRY version'
+        required: true
+  pull_request:
+    branches:
+      master
+
+env:
+  LBRY_VERSION: ${{ github.event.inputs.version }}
+  SCRIPTS_BRANCH: for-starters
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+      - name: Get the LBRY version
+        if: ${{ env.LBRY_VERSION == '' }}
+        run: curl https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/get_lbry_version.bash 2>/dev/null | bash
+      - name: Checkout the repository
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: actions/checkout@v2
+        with:
+          repository: lbryio/lbry-android
+          ref: v${{ env.LBRY_VERSION }}
+      - name: Install Java
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '16'
+          cache: gradle
+      - name: Validate Gradle Wrapper
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: gradle/wrapper-validation-action@v1
+      - name: Build with Gradle
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        run: ./gradlew build
+      - name: Cleanup Gradle Cache
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
+      - name: Upload artifacts
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: APK
+          path: app/build/
+

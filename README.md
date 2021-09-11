@@ -1,6 +1,6 @@
 # About this fork
 
-This fork disables the filter of black-listed content used in official [LBRY](https://github.com/lbryio/lbry-desktop) clients.
+This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client.
 
 It is a proof-of-concept piece of software, and users running it may put themselves at legal risk.
 
