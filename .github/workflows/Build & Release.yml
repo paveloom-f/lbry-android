@@ -54,7 +54,7 @@ jobs:
               lintOptions {
                   abortOnError false
               }
-          }" >> build.gradle
+          }" >> app/build.gradle
           chmod +x gradlew
           ./gradlew build --warning-mode all
       - name: Cleanup Gradle Cache
