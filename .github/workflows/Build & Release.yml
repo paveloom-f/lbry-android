@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: lbryio/lbry-android
-          ref: v${{ env.LBRY_VERSION }}
+          ref: ${{ env.LBRY_VERSION }}
       - name: Install Java
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         uses: actions/setup-java@v2
