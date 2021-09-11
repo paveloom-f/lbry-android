@@ -48,7 +48,7 @@ jobs:
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         run: |
           chmod +x gradlew
-          ./gradlew build
+          ./gradlew build --warning-mode all
       - name: Cleanup Gradle Cache
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         run: |
