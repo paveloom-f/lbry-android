@@ -49,6 +49,12 @@ jobs:
         run: |
           echo -e "twitterConsumerKey=\n\ntwitterConsumerSecret=" > app/twitter.properties
           mv app/google-services.sample.json app/google-services.json
+          echo "
+            android {
+              lintOptions {
+                  abortOnError false
+              }
+          }" >> build.gradle
           chmod +x gradlew
           ./gradlew build --warning-mode all
       - name: Cleanup Gradle Cache
