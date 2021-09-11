@@ -47,6 +47,7 @@ jobs:
       - name: Build with Gradle
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         run: |
+          echo -e "twitterConsumerKey=\n\ntwitterConsumerSecret=" > app/twitter.properties
           chmod +x gradlew
           ./gradlew build --warning-mode all
       - name: Cleanup Gradle Cache
