@@ -57,16 +57,19 @@ jobs:
           }" >> app/build.gradle
           chmod +x gradlew
           ./gradlew build --warning-mode all
-          find . -type f -name "*.apk"
       - name: Cleanup Gradle Cache
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
           rm -f ~/.gradle/caches/modules-2/gc.properties
-      # - name: Upload artifacts
-      #   if: ${{ env.LBRY_VERSION != 'SKIP' }}
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: APK
-      #     path: app/build/
+      - name: Upload artifacts
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: APKs
+          path: |
+            app/build/outputs/apk/__32bit/debug/app-__32bit-debug.apk
+            app/build/outputs/apk/__32bit/release/app-__32bit-release-unsigned.apk
+            app/build/outputs/apk/__64bit/debug/app-__64bit-debug.apk
+            app/build/outputs/apk/__64bit/release/app-__64bit-release-unsigned.apk
 
