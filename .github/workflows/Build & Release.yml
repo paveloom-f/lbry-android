@@ -48,6 +48,7 @@ jobs:
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         run: |
           echo -e "twitterConsumerKey=\n\ntwitterConsumerSecret=" > app/twitter.properties
+          mv app/google-services.sample.json app/google-services.json
           chmod +x gradlew
           ./gradlew build --warning-mode all
       - name: Cleanup Gradle Cache
