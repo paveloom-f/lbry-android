@@ -41,6 +41,10 @@ jobs:
           distribution: 'adopt'
           java-version: '13'
           cache: gradle
+      - name: Install `zipalign`
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zipalign
       - name: Validate Gradle Wrapper
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         uses: gradle/wrapper-validation-action@v1
