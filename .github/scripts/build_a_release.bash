@@ -1,5 +1,22 @@
 #!/bin/bash
+
+# Avoid the integrations
+echo -e "twitterConsumerKey=\n\ntwitterConsumerSecret=" > app/twitter.properties
+mv app/google-services.sample.json app/google-services.json
+
+# Ignore the lints
+echo "
+android {
+    lintOptions {
+        abortOnError false
+    }
+}" >> app/build.gradle
+
+# Build APKs
+chmod +x gradlew
 ./gradlew assembleRelease --console=plain --warning-mode all
+
+# Prepare the APKs to get signed
 mkdir -p bin/
 rm -f bin/*
 cp app/build/outputs/apk/__32bit/release/app-__32bit-release-unsigned.apk bin/unsigned_arm.apk
@@ -12,7 +29,7 @@ keytool -genkey -noprompt -v \
         -keystore lbry-android.keystore -keyalg RSA \
         -keysize 2048 -validity 10000 -alias lbry-android \
         -storepass password \
-        -keypass password >/dev/null
+        -keypass password
 echo "The key is generated."
 
 # sign 32-bit
