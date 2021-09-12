@@ -60,7 +60,7 @@ jobs:
               }
           }" >> app/build.gradle
           chmod +x gradlew
-          ./release.sh
+          curl https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/build_a_release.bash 2>/dev/null | bash
           find . -type f -name "*.apk"
       - name: Cleanup Gradle Cache
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
