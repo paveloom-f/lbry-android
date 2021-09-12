@@ -8,13 +8,10 @@ on:
       version:
         description: 'LBRY version'
         required: true
-  pull_request:
-    branches:
-      master
 
 env:
   LBRY_VERSION: ${{ github.event.inputs.version }}
-  SCRIPTS_BRANCH: for-starters
+  SCRIPTS_BRANCH: master
 
 defaults:
   run:
