@@ -8,6 +8,7 @@ cp app/build/outputs/apk/__64bit/release/app-__64bit-release-unsigned.apk bin/un
 # Generate a key
 echo "Generating a key..."
 keytool -genkey -noprompt -v \
+        -dname "CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, S=Unknown, C=Unknown" \
         -keystore lbry-android.keystore -keyalg RSA \
         -keysize 2048 -validity 10000 -alias lbry-android \
         -storepass password \
