@@ -1,5 +1,5 @@
 #!/bin/bash
-./gradlew assembleRelease --console=plain
+./gradlew assembleRelease --console=plain --warning-mode all
 mkdir -p bin/
 rm -f bin/*
 cp app/build/outputs/apk/__32bit/release/app-__32bit-release-unsigned.apk bin/unsigned_arm.apk
