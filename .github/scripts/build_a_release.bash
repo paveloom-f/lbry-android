@@ -41,7 +41,7 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
           -keystore lbry-android.keystore -storepass password \
            bin/unsigned_arm.apk lbry-android >/dev/null
 mv bin/unsigned_arm.apk bin/signed_arm.apk
-zipalign -v 4 bin/signed_arm.apk bin/arm.apk >/dev/null
+zipalign -v 4 bin/signed_arm.apk bin/LBRY_arm.apk >/dev/null
 rm bin/signed_arm.apk
 echo "32-bit APK successfully built."
 
@@ -51,6 +51,6 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
           -keystore lbry-android.keystore -storepass password \
           bin/unsigned_arm64.apk lbry-android >/dev/null
 mv bin/unsigned_arm64.apk bin/signed_arm64.apk
-zipalign -v 4 bin/signed_arm64.apk bin/arm64.apk >/dev/null
+zipalign -v 4 bin/signed_arm64.apk bin/LBRY_arm64.apk >/dev/null
 rm bin/signed_arm64.apk
 echo "64-bit APK successfully built."
