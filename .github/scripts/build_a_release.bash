@@ -12,6 +12,9 @@ android {
     }
 }" >> app/build.gradle
 
+# Disable the filter
+sed -i 's|if (Helper.isClaimBlocked(claim))|if (false)/g' $(grep -lr "if (Helper.isClaimBlocked(claim))" app/src)
+
 # Build APKs
 chmod +x gradlew
 ./gradlew assembleRelease --console=plain --warning-mode all
