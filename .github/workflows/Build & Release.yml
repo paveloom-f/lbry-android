@@ -78,6 +78,6 @@ jobs:
         with:
           name: APKs
           path: |
-            app/build/outputs/apk/__32bit/release/app-__32bit-release-unsigned.apk
-            app/build/outputs/apk/__64bit/release/app-__64bit-release-unsigned.apk
+            bin/arm.apk
+            bin/arm64.apk
 

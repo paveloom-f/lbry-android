@@ -12,16 +12,16 @@ keytool -genkey -noprompt -v \
         -keystore lbry-android.keystore -keyalg RSA \
         -keysize 2048 -validity 10000 -alias lbry-android \
         -storepass password \
-        -keypass password
+        -keypass password >/dev/null
 echo "The key is generated."
 
 # sign 32-bit
 echo "Signing 32-bit APK..."
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
           -keystore lbry-android.keystore -storepass password \
-           bin/unsigned_arm.apk lbry-android
+           bin/unsigned_arm.apk lbry-android >/dev/null
 mv bin/unsigned_arm.apk bin/signed_arm.apk
-zipalign -v 4 bin/signed_arm.apk bin/browser-release_arm.apk >/dev/null
+zipalign -v 4 bin/signed_arm.apk bin/arm.apk >/dev/null
 rm bin/signed_arm.apk
 echo "32-bit APK successfully built."
 
@@ -29,8 +29,8 @@ echo "32-bit APK successfully built."
 echo "Signing 64-bit APK..."
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
           -keystore lbry-android.keystore -storepass password \
-          bin/unsigned_arm64.apk lbry-android
+          bin/unsigned_arm64.apk lbry-android >/dev/null
 mv bin/unsigned_arm64.apk bin/signed_arm64.apk
-zipalign -v 4 bin/signed_arm64.apk bin/browser-release_arm64.apk >/dev/null
+zipalign -v 4 bin/signed_arm64.apk bin/arm64.apk >/dev/null
 rm bin/signed_arm64.apk
 echo "64-bit APK successfully built."
