@@ -10,7 +10,7 @@ echo "Generating a key..."
 keytool -genkey -noprompt -v \
         -keystore lbry-android.keystore -keyalg RSA \
         -keysize 2048 -validity 10000 -alias lbry-android \
-        -storepass password
+        -storepass password \
         -keypass password
 echo "The key is generated."
 
