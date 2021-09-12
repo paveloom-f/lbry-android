@@ -1,8 +1,6 @@
 # About this fork
 
-This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client by changing a few lines of code.
-
-Specifically, applying
+This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client by changing a few lines of code. Specifically, applying
 
 ```bash
 sed -i 's|if (Helper.isClaimBlocked(claim))|if (false)|g' $(grep -lr "if (Helper.isClaimBlocked(claim))" app/src)

@@ -45,6 +45,7 @@ jobs:
           java-version: '13'
           cache: gradle
       - name: Install `zipalign`
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
         run: |
           sudo apt-get update
           sudo apt-get install -y zipalign
