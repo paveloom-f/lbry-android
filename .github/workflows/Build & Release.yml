@@ -27,7 +27,9 @@ jobs:
     steps:
       - name: Get the LBRY version
         if: ${{ env.LBRY_VERSION == '' }}
-        run: curl https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/get_lbry_version.bash 2>/dev/null | bash
+        run: |
+          wget https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/get_lbry_version.bash 2>/dev/null
+          ./get_lbry_version.bash
       - name: Checkout the repository
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
         uses: actions/checkout@v2
@@ -60,7 +62,8 @@ jobs:
               }
           }" >> app/build.gradle
           chmod +x gradlew
-          curl https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/build_a_release.bash 2>/dev/null | bash
+          wget https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/build_a_release.bash 2>/dev/null
+          ./build_a_release.bash
           find . -type f -name "*.apk"
       - name: Cleanup Gradle Cache
         if: ${{ env.LBRY_VERSION != 'SKIP' }}
