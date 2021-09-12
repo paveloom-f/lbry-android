@@ -5,10 +5,10 @@ rm -f bin/*
 cp app/build/outputs/apk/__32bit/release/app-__32bit-release-unsigned.apk bin/unsigned_arm.apk
 cp app/build/outputs/apk/__64bit/release/app-__64bit-release-unsigned.apk bin/unsigned_arm64.apk
 
-# Generate a key
-echo "Generating a key..."
-keytool -genkey -v -keystore lbry-android.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias lbry-android
-echo "The key is generated."
+# # Generate a key
+# echo "Generating a key..."
+# keytool -genkey -v -keystore lbry-android.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias lbry-android
+# echo "The key is generated."
 
 # sign 32-bit
 echo "Signing 32-bit APK..."
