@@ -1,10 +1,21 @@
 # About this fork
 
-This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client.
+This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client by changing a few lines of code.
+
+Specifically, applying
+
+```bash
+sed -i 's|if (Helper.isClaimBlocked(claim))|if (false)|g' $(grep -lr "if (Helper.isClaimBlocked(claim))" app/src)
+```
+
+in the [build process](https://github.com/paveloom-f/lbry-android/actions).
 
 It is a proof-of-concept piece of software, and users running it may put themselves at legal risk.
 
 The APKs are available on the [Releases](https://github.com/paveloom-f/lbry-android/releases/) page.
+
+See also:
+- [LBRY Desktop Fork](https://github.com/paveloom-f/lbry-desktop)
 
 Learn more about:
 - [DMCA policy](https://lbry.com/faq/dmca)
