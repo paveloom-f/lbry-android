@@ -1,0 +1,6 @@
+
+            android {
+              lintOptions {
+                  abortOnError false
+              }
+          }

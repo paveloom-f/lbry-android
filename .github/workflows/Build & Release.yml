@@ -1,0 +1,92 @@
+name: Build & Release
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'LBRY version'
+        required: true
+
+env:
+  LBRY_VERSION: ${{ github.event.inputs.version }}
+  SCRIPTS_BRANCH: master
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build & Release
+    steps:
+      - name: Get the LBRY version
+        if: ${{ env.LBRY_VERSION == '' }}
+        run: |
+          wget https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/get_lbry_version.bash 2>/dev/null
+          chmod +x get_lbry_version.bash
+          ./get_lbry_version.bash
+      - name: Checkout the repository
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: actions/checkout@v2
+        with:
+          repository: lbryio/lbry-android
+          ref: ${{ env.LBRY_VERSION }}
+      - name: Install Java
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '13'
+          cache: gradle
+      - name: Install `zipalign`
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zipalign
+      - name: Validate Gradle Wrapper
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: gradle/wrapper-validation-action@v1
+      - name: Build with Gradle
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        run: |
+          wget https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/build_a_release.bash 2>/dev/null
+          chmod +x build_a_release.bash
+          ./build_a_release.bash
+      - name: Cleanup Gradle Cache
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
+      - name: Upload artifacts
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: APKs
+          path: |
+            bin/LBRY_arm.apk
+            bin/LBRY_arm64.apk
+      - name: Delete the previous release (if exists)
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        run: |
+          wget https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/delete_a_release.bash 2>/dev/null
+          chmod +x delete_a_release.bash
+          ./delete_a_release.bash
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_REPO: https://api.github.com/repos/paveloom-f/lbry-android/releases
+      - name: Create a release
+        if: ${{ env.LBRY_VERSION != 'SKIP' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          body: Use at your own risk.
+          name: ${{ env.LBRY_VERSION }}
+          tag_name: v${{ env.LBRY_VERSION }}
+          files: |
+            bin/LBRY_arm.apk
+            bin/LBRY_arm64.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
