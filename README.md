@@ -3,7 +3,7 @@
 This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client by changing a few lines of code. Specifically, applying
 
 ```bash
-sed -i 's|if (Helper.isClaimBlocked(claim))|if (false)|g' $(grep -lr "if (Helper.isClaimBlocked(claim))" app/src)
+sed -i 's|Lbryio.populateOutpointList|// Lbryio.populateOutpointList|g' $(grep -lr "Lbryio.populateOutpointList" app/src)
 ```
 
 in the [build process](https://github.com/paveloom-f/lbry-android/actions).

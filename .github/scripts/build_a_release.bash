@@ -13,7 +13,7 @@ android {
 }" >> app/build.gradle
 
 # Disable the filter
-sed -i 's|if (Helper.isClaimBlocked(claim))|if (false)|g' $(grep -lr "if (Helper.isClaimBlocked(claim))" app/src)
+sed -i 's|Lbryio.populateOutpointList|// Lbryio.populateOutpointList|g' $(grep -lr "Lbryio.populateOutpointList" app/src)
 
 # Build APKs
 chmod +x gradlew
