@@ -13,7 +13,8 @@ on:
       - master
 
 env:
-  LBRY_VERSION: ${{ github.event.inputs.version }}
+  # LBRY_VERSION: ${{ github.event.inputs.version }}
+  LBRY_VERSION: 0.17.1
   SCRIPTS_BRANCH: dont-populate-outpoints
 
 defaults:
