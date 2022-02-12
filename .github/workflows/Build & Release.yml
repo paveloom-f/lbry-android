@@ -1,8 +1,6 @@
 name: Build & Release
 
 on:
-  schedule:
-    - cron: '*/30 * * * *'
   workflow_dispatch:
     inputs:
       version:
@@ -89,4 +87,3 @@ jobs:
             bin/LBRY_arm64.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
