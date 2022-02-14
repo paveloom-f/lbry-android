@@ -16,7 +16,7 @@ android {
 sed -i 's/android {/android {\n    ndkVersion "16.1.4479499"/' app/build.gradle
 
 # Disable the filter
-sed -ri 's|(Lbryio.populateOutpointList)|// \1|g' "$(grep -lr "Lbryio.populateOutpointList" app/src)"
+sed -ri 's|(Lbryio\.populateOutpointList)|// \1|g' "$(grep -lr "Lbryio.populateOutpointList" app/src)"
 
 # Build APKs
 chmod +x gradlew
