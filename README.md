@@ -1,6 +1,6 @@
 # About this fork
 
-This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client by changing a few lines of code. Specifically, applying
+This fork disables the filter of black-listed content used in the official [LBRY Android](https://github.com/lbryio/lbry-android) client by changing a few lines of code. Specifically, by applying
 
 ```bash
 sed -ri 's|(Lbryio\.populateOutpointList)|// \1|g' "$(grep -lr "Lbryio.populateOutpointList" app/src)"
