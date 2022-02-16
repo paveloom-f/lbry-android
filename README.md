@@ -12,6 +12,11 @@ It is a proof-of-concept piece of software, and users running it may put themsel
 
 The APKs are available on the [Releases](https://github.com/paveloom-f/lbry-android/releases/) page.
 
+Git mirrors:
+- [Codeberg](https://codeberg.org/paveloom-f/lbry-android)
+- [GitHub](https://github.com/paveloom-f/lbry-android)
+- [GitLab](https://gitlab.com/paveloom-g/forks/lbry-android)
+
 See also:
 - [LBRY Desktop Fork](https://github.com/paveloom-f/lbry-desktop)
 
