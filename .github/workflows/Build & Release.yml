@@ -6,10 +6,14 @@ on:
       version:
         description: 'LBRY version'
         required: true
+  pull_request:
+    branches:
+      - master
 
 env:
-  LBRY_VERSION: ${{ github.event.inputs.version }}
-  SCRIPTS_BRANCH: master
+  # LBRY_VERSION: ${{ github.event.inputs.version }}
+  LBRY_VERSION: 0.17.1
+  SCRIPTS_BRANCH: change-api-link
 
 defaults:
   run:
@@ -60,22 +64,22 @@ jobs:
           path: |
             bin/LBRY_arm.apk
             bin/LBRY_arm64.apk
-      - name: Delete the previous release (if exists)
-        run: |
-          wget https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/delete_a_release.bash 2>/dev/null
-          chmod +x delete_a_release.bash
-          ./delete_a_release.bash
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
-          GH_REPO: https://api.github.com/repos/paveloom-f/lbry-android/releases
-      - name: Create a release
-        uses: softprops/action-gh-release@v1
-        with:
-          body: Use at your own risk.
-          name: ${{ env.LBRY_VERSION }}
-          tag_name: v${{ env.LBRY_VERSION }}
-          files: |
-            bin/LBRY_arm.apk
-            bin/LBRY_arm64.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Delete the previous release (if exists)
+      #   run: |
+      #     wget https://raw.githubusercontent.com/paveloom-f/lbry-android/${{ env.SCRIPTS_BRANCH }}/.github/scripts/delete_a_release.bash 2>/dev/null
+      #     chmod +x delete_a_release.bash
+      #     ./delete_a_release.bash
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_PAT }}
+      #     GH_REPO: https://api.github.com/repos/paveloom-f/lbry-android/releases
+      # - name: Create a release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     body: Use at your own risk.
+      #     name: ${{ env.LBRY_VERSION }}
+      #     tag_name: v${{ env.LBRY_VERSION }}
+      #     files: |
+      #       bin/LBRY_arm.apk
+      #       bin/LBRY_arm64.apk
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

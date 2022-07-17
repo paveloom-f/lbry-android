@@ -18,6 +18,9 @@ sed -i 's/android {/android {\n    ndkVersion "16.1.4479499"/' app/build.gradle
 # Disable the filter
 sed -ri 's|(Lbryio\.populateOutpointList)|// \1|g' "$(grep -lr "Lbryio.populateOutpointList" app/src)"
 
+# Change the API link from `api.lbry.tv` to the local one
+sed -ri 's|https://api\.lbry\.tv/api/v1/proxy|http://127.0.0.1:5279|g' "$(grep -lr "https://api.lbry.tv/api/v1/proxy" app/src)"
+
 # Build APKs
 chmod +x gradlew
 ./gradlew assembleRelease --console=plain --warning-mode all
